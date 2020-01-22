@@ -1,21 +1,17 @@
 package com.example.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.service.AppPushUtil;
-import com.example.service.AppPushUtil.Message;
-import com.example.service.impl.JPushUtilImpl;
+import com.example.util.AppPushUtil;
+import com.example.util.AppPushUtil.Message;
 
 @RestController
 public class MainController {
     
-    @Value("${app.jpush.key}")
-    private String appKey;
-    
-    @Value("${app.jpush.secret}")
-    private String masterSecret;
+    @Autowired
+    private AppPushUtil pushUtil;
 
     @GetMapping(path = "/test")
     void test(String message) {
@@ -23,11 +19,10 @@ public class MainController {
             message = "default alert";
         }
 
-        AppPushUtil push = new JPushUtilImpl(appKey, masterSecret);
         Message pubshMessage = new Message();
         pubshMessage.setContent(message);
         pubshMessage.setTitle("hahah");
-        push.pushAliasOne("ssadfsce", pubshMessage);
+        pushUtil.pushAliasOne("ssadfsce", pubshMessage);
     }
     
     @GetMapping(path = "/test1")
@@ -35,8 +30,7 @@ public class MainController {
         if (alsis == null || alsis.isEmpty()) {
             alsis = "ssadfsce";
         }
-        AppPushUtil push = new JPushUtilImpl(appKey, masterSecret);
-        push.setAlias("13065ffa4e66a6568f8", "ssadfsce");
+        pushUtil.setAlias("13065ffa4e66a6568f8", "ssadfsce");
     }
     
 

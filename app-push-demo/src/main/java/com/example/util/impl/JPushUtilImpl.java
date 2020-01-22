@@ -1,9 +1,9 @@
-package com.example.service.impl;
+package com.example.util.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.service.AppPushUtil;
+import com.example.util.AppPushUtil;
 
 import cn.jiguang.common.ClientConfig;
 import cn.jiguang.common.resp.APIConnectionException;
