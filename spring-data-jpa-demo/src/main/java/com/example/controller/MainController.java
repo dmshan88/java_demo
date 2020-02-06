@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.dao.BlogDAO;
 import com.example.dao.DemoDataDAO;
+import com.example.dao.UserDAO;
+import com.example.pojo.Blog;
 import com.example.pojo.DemoData;
+import com.example.pojo.User;
 
 @RestController
 public class MainController {
@@ -20,7 +24,34 @@ public class MainController {
     @Autowired
     private DemoDataDAO dao;
     
+    @Autowired
+    private BlogDAO blogDAO;
     
+    @Autowired
+    private UserDAO userDAO;
+    
+    
+    @GetMapping(path = "/test1") 
+    void test1() {
+        User user = new User();
+        user.setName("aa");
+        user = userDAO.save(user);
+        Blog blog = new Blog();
+        blog.setTitle("ttt");
+        blog.setContent("ssss");
+        blog.setUserId(user.getId());
+//        blog.setUser(user);
+        blogDAO.save(blog);
+        System.out.println(blogDAO.findAll());
+    }
+    
+    @GetMapping(path = "/test2") 
+    List<Blog> test2(Integer id, String name) {
+//        Blog blog = blogDAO.findByUser_Id(id);
+        List<Blog> list = blogDAO.findByUser_Name(name);
+        System.out.println(list);
+        return list;
+    }
     @Transactional
     @GetMapping(path = "/test")
     void test() {

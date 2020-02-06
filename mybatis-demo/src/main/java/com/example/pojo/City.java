@@ -1,14 +1,12 @@
 package com.example.pojo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class City {
 
     private int id;
-    private String name1;
-    private String state1;
-    private String country1;
+    private String name;
+    private String state;
+    private String country;
 }

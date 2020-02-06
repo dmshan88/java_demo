@@ -10,11 +10,11 @@ import com.example.pojo.City;
 @Mapper
 public interface CityDAO {
 
-    @Insert("INSERT INTO city (name, state, country) VALUES(#{name1}, #{state1}, #{country1})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(City city);
-    
-    @Select("SELECT id, name as name1, state, country FROM city WHERE id = #{id}")
+//    @Insert("INSERT INTO city (name, state, country) VALUES(#{name1}, #{state1}, #{country1})")
+//    @Options(useGeneratedKeys = true, keyProperty = "id")
+//    int insert(City city);
+//    
+//    @Select("SELECT id, name as name1, state, country FROM city WHERE id = #{id}")
     City findById(long id);
 
 }
