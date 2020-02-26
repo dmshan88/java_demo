@@ -1,16 +1,11 @@
 package com.example.controller;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.BasicErrorController;
-import org.springframework.boot.autoconfigure.web.ErrorAttributes;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,14 +16,13 @@ import com.example.common.CustomPageRequestUtil;
 import com.example.common.CustomPageResponse;
 import com.example.common.CustomResponse;
 import com.example.common.ErrorCode;
+import com.example.compoment.JwtUtil;
 import com.example.config.properties.AppProperties;
 import com.example.dao.UserDAO;
 import com.example.dao.UserDAO2;
 import com.example.pojo.User;
 
-import cn.hutool.core.util.RandomUtil;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @RestController
 public class MainController {
@@ -37,13 +31,16 @@ public class MainController {
     private AppProperties appProperties;
     
     @Autowired
+    private JwtUtil jwtUtil;
+    
+    @Autowired
     private UserDAO userDAO;
     
     @Autowired
     private UserDAO2 userDAO2;
     
     @GetMapping(path = "/test")
-    void test() {
+    public void test() {
         System.out.println("test1");
         throw new CustomException(ErrorCode.ERROR, "aa");
     }
@@ -79,6 +76,28 @@ public class MainController {
         System.out.println(CustomPageResponse.ok(users1));
         System.out.println(CustomPageResponse.ok(users));
         return CustomPageResponse.ok(users1);
+    }
+    
+
+    
+    @Secured({"ROLE_user"})
+    @GetMapping(path = "/test1")
+    public String test(@RequestParam String token) {
+        System.out.println(token);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth);
+        System.out.println(auth.getName()); 
+        System.out.println(auth.getPrincipal());
+        System.out.println(auth.getAuthorities()); 
+        return "ok";
+    }
+    
+    @GetMapping(path = "/login")
+    public CustomResponse<String> login(@RequestParam String username, @RequestParam String password) {
+        if (username.equals("user1") && password.equals("pwd1")) {
+            return CustomResponse.ok(jwtUtil.createJwt(username, 3600 * 1000L));
+        }
+        return CustomResponse.error(ErrorCode.AUTH_ERROR);
     }
 
 }

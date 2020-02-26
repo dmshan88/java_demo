@@ -3,6 +3,8 @@ package com.example.compoment;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -29,11 +31,24 @@ public class ApiExceptionHandler {
         return CustomResponse.error(ErrorCode.ERROR.getCode(), "404");
     }
     
+    @ExceptionHandler(ServletRequestBindingException.class)
+    public CustomResponse<Object> error(ServletRequestBindingException exception, HttpServletResponse response) {
+        log.error("ServletRequestBindingException" + exception.getMessage());
+        return CustomResponse.error(ErrorCode.PARAM_ERROR);
+    }
+    
     @ExceptionHandler(DataAccessException.class)
     public CustomResponse<Object> error(DataAccessException exception, HttpServletResponse response) {
         log.error("DataAccessException", exception);
         return CustomResponse.error(ErrorCode.DATABASE_ERROR);
     }
+    
+    @ExceptionHandler(AccessDeniedException.class)
+    public CustomResponse<Object> error(AccessDeniedException exception, HttpServletResponse response) {
+        log.error("DataAccessException", exception);
+        return CustomResponse.error(ErrorCode.NO_PERMISSION);
+    }
+    
     
     @ExceptionHandler(Exception.class)
     public CustomResponse<Object> error(Exception exception, HttpServletResponse response) {

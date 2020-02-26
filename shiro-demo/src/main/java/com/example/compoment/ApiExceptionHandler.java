@@ -2,6 +2,7 @@ package com.example.compoment;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,6 +28,12 @@ public class ApiExceptionHandler {
     public CustomResponse<Object> error(NoHandlerFoundException exception, HttpServletResponse response) {
         log.error("404:" + exception.getMessage());
         return CustomResponse.error(ErrorCode.ERROR.getCode(), "404");
+    }
+    
+    @ExceptionHandler(UnauthorizedException.class)
+    public CustomResponse<Object> error(UnauthorizedException exception, HttpServletResponse response) {
+        log.error("404:" + exception.getMessage());
+        return CustomResponse.error(ErrorCode.NO_PERMISSION);
     }
     
     @ExceptionHandler(ServletRequestBindingException.class)
