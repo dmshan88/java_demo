@@ -80,7 +80,7 @@ public class MainController {
     
 
     
-    @Secured({"ROLE_user"})
+//    @Secured({"ROLE_user"})
     @GetMapping(path = "/test1")
     public String test(@RequestParam String token) {
         System.out.println(token);

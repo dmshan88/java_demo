@@ -16,6 +16,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.example.common.CustomResponse;
 import com.example.common.ErrorCode;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(hidden = true)
 @RestController
 public class CustomErrorController implements ErrorController {
 
@@ -29,6 +33,7 @@ public class CustomErrorController implements ErrorController {
         return PATH;
     }
 
+    @ApiOperation(hidden = true, value = "自定义错误页面")
     @RequestMapping(value = PATH)
     CustomResponse<Object> error(HttpServletRequest request, HttpServletResponse response) {
         RequestAttributes requestAttributes = new ServletRequestAttributes(request);

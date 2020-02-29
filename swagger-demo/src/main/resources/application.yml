@@ -1,0 +1,13 @@
+server:
+  port: 8080
+app:
+  swagger:
+    enable: true
+    title: 测试
+    description: 描述1
+    version: 1.1
+logging:
+  level:
+    root: INFO
+  file: log.txt
+

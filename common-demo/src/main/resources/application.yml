@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+app:
+  demo: 
+    aa: 1
+    bb: ss
+
+  jwt:
+    secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY
+
+  swagger:
+    enable: true
+    title: 测试
+    description: 描述1
+    version: 1.1
+
+spring:
+  datasource: 
+    platform: h2
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:file:~/test;
+    username: root
+    password: root
+    sql-script-encoding: utf-8
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  
+  h2:
+    console:
+      settings: 
+        web-allow-others: true
+      path: /h2
+      enabled: true
+      
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.example.pojo
+  
+logging:
+  level:
+    root: INFO
+  file: log.txt
+

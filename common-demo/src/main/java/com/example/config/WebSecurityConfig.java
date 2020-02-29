@@ -70,11 +70,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 
             }
+        }).accessDeniedHandler(new AccessDeniedHandler() {
+            
+            @Override
+            public void handle(HttpServletRequest request, HttpServletResponse response,
+                    AccessDeniedException accessDeniedException) throws IOException, ServletException {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                
+            }
         })
         .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and().cors()
         
         .and().authorizeRequests()
+            .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagge‌​r-ui.html").permitAll()
             .antMatchers("/test/**","/error", "/login").permitAll()
              .anyRequest().authenticated()
         .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);;
