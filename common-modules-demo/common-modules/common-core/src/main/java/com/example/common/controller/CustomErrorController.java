@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.common.controller;
 
 import java.util.Map;
 
@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.example.common.CustomResponse;
-import com.example.common.ErrorCode;
+import com.example.common.core.CustomResponse;
+import com.example.common.core.ErrorCode;
 
-
-@ConditionalOnMissingBean(CustomErrorController.class)
+import springfox.documentation.annotations.ApiIgnore;
 @RestController
 public class CustomErrorController implements ErrorController {
 
-    private static final String PATH = "/error";
+    protected static final String PATH = "/error";
 
     @Autowired
     private ErrorAttributes errorAttributes;
@@ -32,8 +30,9 @@ public class CustomErrorController implements ErrorController {
         return PATH;
     }
 
+    @ApiIgnore
     @RequestMapping(value = PATH)
-    public CustomResponse<Object> error(HttpServletRequest request, HttpServletResponse response) {
+    CustomResponse<Object> error(HttpServletRequest request, HttpServletResponse response) {
         RequestAttributes requestAttributes = new ServletRequestAttributes(request);
         Map<String, Object> errorMap = this.errorAttributes.getErrorAttributes(requestAttributes, false);
         Integer status = (Integer) errorMap.get("status");
@@ -47,8 +46,6 @@ public class CustomErrorController implements ErrorController {
         } else if (status == ErrorCode.TOKEN_EXPIRED.getCode()) {
             errorcode = ErrorCode.TOKEN_EXPIRED;
         }
-        System.out.println(status);
-        System.out.println(errorcode);
         response.setStatus(HttpServletResponse.SC_OK);
         return CustomResponse.error(errorcode);
     }

@@ -1,0 +1,38 @@
+
+app:
+  auth:
+    username: ss
+    password: 11
+    properties:
+      permitUrls:
+        - /test1
+  swagger:
+    enable: true
+    title: 测试
+    description: 描述
+    version: 1.0
+logging:
+  level:
+    root: INFO
+  file: log.txt
+spring:
+  datasource: 
+    platform: h2
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:file:~/test;
+    username: root
+    password: root
+    sql-script-encoding: utf-8
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    
+  h2:
+    console:
+      settings: 
+        web-allow-others: true
+      path: /h2
+      enabled: true
+
