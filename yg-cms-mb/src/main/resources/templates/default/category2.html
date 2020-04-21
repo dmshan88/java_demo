@@ -1,0 +1,29 @@
+[#include "head.html"]
+category2<br>
+侧边栏
+<div>
+  <ul>
+    [#list category_list as category_1]
+    <li id="${category_1.id}"><a href="/category/${category_1.id}">${category_1.name}</a></li>
+    [/#list]
+  </ul>
+</div>
+
+<div>
+  <a href="/">首页</a> &gt;
+  <a href="/category/${category_parent.id}">${category_parent.name}</a> &gt;
+  <a href="/category/${category.id}">${category.name}</a>
+</div>
+
+文章列表
+<div>
+  <ul>
+    [#list post_page.list as post]
+    <li>
+      <a href="/post/${post.id}"> ${post.title} </a>
+      ${post.summary!''}
+    </li>
+    [/#list]
+  </ul>
+</div>
+[#include "foot.html"]

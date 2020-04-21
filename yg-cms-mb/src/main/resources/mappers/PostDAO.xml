@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygsm.dao.PostDAO">
+
+  <select id="findById" resultType="Post">
+    SELECT * FROM post
+    WHERE id = #{id}
+  </select>
+
+  <select id="findByCategoryId" resultType="Post">
+    SELECT * FROM post
+    WHERE category_id = #{categoryId}
+  </select>
+
+  <select id="findByCategoryIdIn" resultType="Post">
+    SELECT * FROM post
+    WHERE category_id IN
+    <foreach collection="list" item="item"
+      index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
+  <insert id="insert" parameterType="Post"
+    useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO post(title, content, category_id)
+    VALUES(#{title}, #{content}, #{categoryId})
+  </insert>
+  
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
+    INSERT INTO post(title, content, category_id) VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.title}, #{item.content}, #{item.categoryId})
+    </foreach>
+  </insert>
+
+  <update id="update" parameterType="Post">
+    UPDATE post SET
+    title = #{title},
+    content = #{content},
+    category_id = #{categoryId}
+    WHERE id = #{id}
+  </update>
+
+</mapper>

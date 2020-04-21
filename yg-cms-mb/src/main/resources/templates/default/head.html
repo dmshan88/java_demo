@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>滨州实验学校</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+</head>
+
+<body>
+  head<br>
+  目录
+  [#list menu_list as menu]
+  <li>
+    <a href="${menu.url!''}">${menu.name}</a> <a href="/img/syxx/${menu.image!''}">图片</a> ${menu.summary!''}
+    [#if menu.children??]
+    (
+    [#list menu.children as menu_child]
+    <a href="${menu_child.url!''}">${menu_child.name}</a> ,
+    [/#list]
+    )
+    [/#if]
+  </li>
+  [/#list]

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygsm.dao.MenuDAO">
+
+  <select id="findById" resultType="Menu">
+    SELECT * FROM menu
+    WHERE id = #{id}
+  </select>
+  
+  <select id="findAll" resultType="Menu">
+    SELECT * FROM menu
+  </select>
+
+  <insert id="insert" parameterType="Menu"
+    useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO menu(name, url, parent_id, priority)
+    VALUES(#{name}, #{url}, #{parentId}, #{priority})
+  </insert>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
+    INSERT INTO menu(name, url, parent_id, priority) VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.name}, #{item.url}, #{item.parentId}, #{item.priority})
+    </foreach>
+  </insert>
+  
+  <update id="update" parameterType="Menu">
+    UPDATE menu SET
+    name = #{name},
+    url = #{url},
+    parent_id = #{parentId},
+    priority = #{priority}
+    WHERE id = #{id}
+  </update>
+
+</mapper>
