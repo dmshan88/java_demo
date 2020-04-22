@@ -14,6 +14,20 @@ CREATE TABLE `menu`  (
   PRIMARY KEY (`id`)
 ) COMMENT = '目录';
 
+CREATE TABLE `page`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `template` varchar(255) NOT NULL DEFAULT '' COMMENT '模板',
+  PRIMARY KEY (`id`)
+) COMMENT = '页面';
+
+CREATE TABLE `page_relate`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `page_id` bigint NOT NULL COMMENT '页面ID',
+  `relate_id` int NOT NULL COMMENT '关联ID',
+  `relate_type` tinyint NOT NULL DEFAULT 0 COMMENT '1=分类',
+  PRIMARY KEY (`id`)
+) COMMENT = '页面关联';
+
 CREATE TABLE `post`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
@@ -22,5 +36,6 @@ CREATE TABLE `post`  (
   PRIMARY KEY (`id`)
 ) COMMENT = '文章';
 
+ALTER TABLE `page_relate` ADD CONSTRAINT `fk_page_relate_page_1` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`);
 ALTER TABLE `post` ADD CONSTRAINT `fk_post_category_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 

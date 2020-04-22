@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygsm.dao.WebPageDAO">
+
+  <select id="findById" resultType="WebPage">
+    SELECT * FROM page
+    WHERE id = #{id}
+  </select>
+
+  <insert id="insert" parameterType="WebPage"
+    useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO page(template)
+    VALUES(#{template})
+  </insert>
+  
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
+    INSERT INTO page(template) VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.template})
+    </foreach>
+  </insert>
+
+  <update id="update" parameterType="WebPage">
+    UPDATE page SET
+    template = #{template}
+    WHERE id = #{id}
+  </update>
+
+</mapper>

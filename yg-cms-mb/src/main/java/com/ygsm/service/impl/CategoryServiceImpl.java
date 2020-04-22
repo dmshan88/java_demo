@@ -1,5 +1,7 @@
 package com.ygsm.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,25 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> findChildrenList(Integer categoryId) {
         return categoryDAO.findByParentId(categoryId);
+    }
+
+    @Override
+    public List<Category> findParentList(Integer parentId) {
+        List<Category> parentCategoryList = new ArrayList<>();
+        if (parentId != null) {
+            Integer tempId = parentId;
+            while(tempId != null && tempId != 0) {
+                Category parentCategory = this.findOne(tempId);
+                if (parentCategory != null) {
+                    parentCategoryList.add(parentCategory);
+                    tempId = parentCategory.getParentId();
+                } else {
+                    tempId = 0;
+                }
+            }
+            Collections.reverse(parentCategoryList);
+        }
+        return parentCategoryList;
     }
 
 }

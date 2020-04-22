@@ -12,8 +12,11 @@ public interface CategoryService {
     /**获取所有分类列表*/ 
     List<Category> findAll();
     
-    /**获取上级分类列表*/ 
+    /**获取顶级分类列表*/ 
     List<Category> findTopList();
+    
+    /**获取各上级分类列表*/ 
+    List<Category> findParentList(Integer parentId);
     
     /**获取子分类列表*/ 
     List<Category> findChildrenList(Integer categoryId);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,9 +43,10 @@ public class ApiController {
     @Autowired
     private MenuDAO menuDAO;
     
-    @GetMapping("/test")
-    public String test() {
-        return "ok";
+    @GetMapping(path = "/get-post/{id}", produces = "application/json;charset=UTF-8")
+    public Post getPost(@PathVariable Long id) {
+        Post post = postDAO.findById(id);
+        return post;
     }
     
     @PostMapping("/create-post")
@@ -74,7 +76,6 @@ public class ApiController {
         try {
             EasyExcel.read(file.getInputStream(), CategoryExcel.class, listener).sheet().doRead();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             return e.getMessage();
         }
         List<CategoryExcel> categoryExcellist = listener.getList();
@@ -103,7 +104,6 @@ public class ApiController {
         try {
             EasyExcel.read(file.getInputStream(), MenuExcel.class, listener).sheet().doRead();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             return e.getMessage();
         }
         List<MenuExcel> menuExcellist = listener.getList();
@@ -134,7 +134,6 @@ public class ApiController {
         try {
             EasyExcel.read(file.getInputStream(), PostExcel.class, listener).sheet().doRead();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             return e.getMessage();
         }
         List<PostExcel> postExcellist = listener.getList();

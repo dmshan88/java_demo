@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygsm.dao.PageRelateDAO">
+
+  <select id="findById" resultType="PageRelate">
+    SELECT * FROM page_relate
+    WHERE id = #{id}
+  </select>
+  
+    <select id="findByPageId" resultType="PageRelate">
+    SELECT * FROM page_relate
+    WHERE page_id = #{pageId}
+  </select>
+
+  <insert id="insert" parameterType="PageRelate"
+    useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO page_relate(page_id, relate_id, relate_type)
+    VALUES(#{pageId}, #{relateId}, #{relateType})
+  </insert>
+  
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
+    INSERT INTO page_relate(page_id, relate_id, relate_type) VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.pageId}, #{item.relateId}, #{item.relateType})
+    </foreach>
+  </insert>
+
+  <update id="update" parameterType="PageRelate">
+    UPDATE page_relate SET
+    page_id = #{pageId}, 
+    relate_id= #{relateId}, 
+    relate_type = #{relateType}
+    WHERE id = #{id}
+  </update>
+
+</mapper>
