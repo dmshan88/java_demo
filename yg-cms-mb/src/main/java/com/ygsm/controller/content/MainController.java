@@ -1,6 +1,7 @@
 package com.ygsm.controller.content;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,9 +99,9 @@ public class MainController {
         if (categoryDetail == null) {
             return theme + "/404";
         }
-        if (categoryDetail.getParentId() == 0) {
-            // 一级分类
-            List<Category> categoryList = categoryService.findChildrenList(id);
+        List<Category> categoryList = categoryService.findChildrenList(id);
+        if (categoryList != null && !categoryList.isEmpty()) {
+            //有子分类
             List<CategroyPostDTO> categroyPostDTOList = new ArrayList<>();
             categoryList.forEach(category -> {
                 CategroyPostDTO categroyPostDTO = postService.findCategoryPostList(category.getId(), categoryPostLimit1,
@@ -110,28 +111,28 @@ public class MainController {
             model.addAttribute(TemplateConstant.CATEGORY_POST_LIST, categroyPostDTOList);// 子分类文章列表
             this.addParentCategoryAndCategoryList(categoryDetail, model);
             return theme + "/category";
-        } else {
-            // 二级分类
-            if (page == null) {
-                page = 1;
-            }
-            PageInfo<Post> postPage = postService.findCategoryPostPage(id, new PageObject(page, categoryPostLimit2));
-            model.addAttribute(TemplateConstant.POST_PAGE, postPage);// 分类文章列表
-            this.addParentCategoryAndCategoryList(categoryDetail, model);
-            return theme + "/category2";
         }
+        //无子分类
+        if (page == null) {
+            page = 1;
+        }
+        PageInfo<Post> postPage = postService.findCategoryPostPage(id, new PageObject(page, categoryPostLimit2));
+        model.addAttribute(TemplateConstant.POST_PAGE, postPage);// 分类文章列表
+        this.addParentCategoryAndCategoryList(categoryDetail, model);
+        return theme + "/category2";
+
     }
 
-    //添加各级分类列表,同级分类列表
+    // 添加各级分类列表,同级分类列表
     private void addParentCategoryAndCategoryList(Category category, Model model) {
         List<Category> categoryList = null;
         List<Category> parentCategoryList = null;
         if (category != null) {
-            Integer parentId = category.getParentId(); 
+            Integer parentId = category.getParentId();
             parentCategoryList = categoryService.findParentList(parentId);
             categoryList = categoryService.findChildrenList(parentId);
         }
-        model.addAttribute(TemplateConstant.CATEGORY_DETAIL, category);// 各级分类列表
+        model.addAttribute(TemplateConstant.CATEGORY_DETAIL, category);// 分类详情
         model.addAttribute(TemplateConstant.CATEGORY_PARENT_LIST, parentCategoryList);// 各级分类列表
         model.addAttribute(TemplateConstant.CATEGORY_LIST, categoryList);// 同级分类列表
     }
