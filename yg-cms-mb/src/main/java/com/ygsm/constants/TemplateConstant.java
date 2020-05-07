@@ -27,7 +27,7 @@ public class TemplateConstant {
 //    
     public static final String MENU_LIST = "menu_list";
     
-    public static final String RELATE_CATEGORY = "relate_catetory_";
+    public static final String WEBPAGE_RELATE = "relate_";
     
 
 }

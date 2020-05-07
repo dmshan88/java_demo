@@ -14,7 +14,7 @@ public class PageRelate {
     private Long relateId;//关联ID
     
     public enum RelateType {
-        CATEGORY(1);
+        CATEGORY(1), SUB_CATEGORY(2);
         @Getter
         private Integer type;
         RelateType(Integer type) {
@@ -23,5 +23,9 @@ public class PageRelate {
         
     }
     private Integer relateType;//关联类型:1=分类
+    
+    private Integer priority;// 优先级
+    
+    private String description;//说明
     
 }

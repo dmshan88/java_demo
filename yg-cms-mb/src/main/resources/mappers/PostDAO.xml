@@ -25,14 +25,14 @@
 
   <insert id="insert" parameterType="Post"
     useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO post(title, content, category_id)
-    VALUES(#{title}, #{content}, #{categoryId})
+    INSERT INTO post(title, content, summary, thumbnail, category_id, type)
+    VALUES(#{title}, #{content}, #{summary}, #{thumbnail}, #{categoryId}, #{type})
   </insert>
   
   <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
-    INSERT INTO post(title, content, category_id) VALUES
+    INSERT INTO post(title, content, summary, thumbnail, category_id, type) VALUES
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.title}, #{item.content}, #{item.categoryId})
+      (#{item.title}, #{item.content},#{item.summary}, #{item.thumbnail}, #{item.categoryId}, #{item.type})
     </foreach>
   </insert>
 
@@ -40,6 +40,8 @@
     UPDATE post SET
     title = #{title},
     content = #{content},
+    summary = #{summary},
+    thumbnail = #{thumbnail},
     category_id = #{categoryId}
     WHERE id = #{id}
   </update>

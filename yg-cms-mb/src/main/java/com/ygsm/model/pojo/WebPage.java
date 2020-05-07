@@ -8,6 +8,8 @@ public class WebPage {
     
     private Long id;
     
+    private String name;//名称
+    
     private String template;//模板
     
 }

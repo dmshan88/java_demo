@@ -19,15 +19,18 @@ import com.ygsm.common.ExcelAnalysisEventListener;
 import com.ygsm.dao.CategoryDAO;
 import com.ygsm.dao.MenuDAO;
 import com.ygsm.dao.PostDAO;
+import com.ygsm.dao.WebPageDAO;
 import com.ygsm.model.excel.CategoryExcel;
 import com.ygsm.model.excel.MenuExcel;
 import com.ygsm.model.excel.PostExcel;
+import com.ygsm.model.excel.WebPageExcel;
 import com.ygsm.model.form.CategoryCreateForm;
 import com.ygsm.model.form.MenuCreateForm;
 import com.ygsm.model.form.PostCreateForm;
 import com.ygsm.model.pojo.Category;
 import com.ygsm.model.pojo.Menu;
 import com.ygsm.model.pojo.Post;
+import com.ygsm.model.pojo.WebPage;
 import com.ygsm.util.BeanUtil;
 
 @RequestMapping("/api")
@@ -36,6 +39,9 @@ public class ApiController {
     
     @Autowired
     private PostDAO postDAO;
+    
+    @Autowired
+    private WebPageDAO webPageDAO;
     
     @Autowired
     private CategoryDAO categoryDAO;
@@ -83,6 +89,9 @@ public class ApiController {
         categoryExcellist.forEach(obj -> {
             Category category = new Category();
             BeanUtil.copyProperties(obj, category);
+            if (category.getTemplate() == null) {
+                category.setTemplate("");
+            }
             categoryList.add(category);
         });
         categoryList.sort(new Comparator<Category>() {
@@ -141,9 +150,34 @@ public class ApiController {
         postExcellist.forEach(obj -> {
             Post post = new Post();
             BeanUtil.copyProperties(obj, post);
+            if(post.getSummary() == null) {
+                post.setSummary("");
+            }
+            if(post.getThumbnail() == null) {
+                post.setThumbnail("");
+            }
             postList.add(post);
         });
         postDAO.batchInsert(postList);
+        return "ok";
+    }
+    
+    @PostMapping(value = "/import-page")
+    public String importPage(@RequestParam("file") MultipartFile file) {
+        ExcelAnalysisEventListener<WebPageExcel> listener = new ExcelAnalysisEventListener<>();
+        try {
+            EasyExcel.read(file.getInputStream(), WebPageExcel.class, listener).sheet().doRead();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+        List<WebPageExcel> postExcellist = listener.getList();
+        List<WebPage> pageList = new ArrayList<>();
+        postExcellist.forEach(obj -> {
+            WebPage post = new WebPage();
+            BeanUtil.copyProperties(obj, post);
+            pageList.add(post);
+        });
+        webPageDAO.batchInsert(pageList);
         return "ok";
     }
 }

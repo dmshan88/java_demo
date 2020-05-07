@@ -11,19 +11,20 @@
 
   <insert id="insert" parameterType="WebPage"
     useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO page(template)
-    VALUES(#{template})
+    INSERT INTO page(name, template)
+    VALUES(#{name}, #{template})
   </insert>
   
   <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
-    INSERT INTO page(template) VALUES
+    INSERT INTO page(name, template) VALUES
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.template})
+      (#{item.name}, #{item.template})
     </foreach>
   </insert>
 
   <update id="update" parameterType="WebPage">
     UPDATE page SET
+    name = #{name},
     template = #{template}
     WHERE id = #{id}
   </update>

@@ -17,8 +17,11 @@ public class PostExcel {
     private Integer categoryId; //分类Id
     
     @ExcelProperty(value = "缩略图")
-    private String image; //缩略图
+    private String thumbnail; //缩略图
     
     @ExcelProperty(value = "摘要")
     private String summary; //摘要
+    
+    @ExcelProperty(value = "类型")
+    private Integer type; //类型:1=文章;2=资源
 }

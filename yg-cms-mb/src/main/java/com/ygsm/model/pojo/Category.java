@@ -12,5 +12,7 @@ public class Category {
     
     private Integer parentId; //父节点
     
+    private String template; //模板
+    
 
 }

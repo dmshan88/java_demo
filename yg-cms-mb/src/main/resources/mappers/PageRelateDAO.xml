@@ -12,18 +12,19 @@
     <select id="findByPageId" resultType="PageRelate">
     SELECT * FROM page_relate
     WHERE page_id = #{pageId}
+    ORDER BY priority
   </select>
 
   <insert id="insert" parameterType="PageRelate"
     useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO page_relate(page_id, relate_id, relate_type)
-    VALUES(#{pageId}, #{relateId}, #{relateType})
+    INSERT INTO page_relate(page_id, relate_id, relate_type, priority, description)
+    VALUES(#{pageId}, #{relateId}, #{relateType}, #{priority}, #{description})
   </insert>
   
   <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="false">
-    INSERT INTO page_relate(page_id, relate_id, relate_type) VALUES
+    INSERT INTO page_relate(page_id, relate_id, relate_type, priority, description) VALUES
     <foreach collection="list" item="item" index="index" separator=",">
-      (#{item.pageId}, #{item.relateId}, #{item.relateType})
+      (#{item.pageId}, #{item.relateId}, #{item.relateType}, #{item.priority}, #{item.description})
     </foreach>
   </insert>
 
@@ -31,7 +32,9 @@
     UPDATE page_relate SET
     page_id = #{pageId}, 
     relate_id= #{relateId}, 
-    relate_type = #{relateType}
+    relate_type = #{relateType},
+    priority = #{priority},
+    description = #{description}
     WHERE id = #{id}
   </update>
 
