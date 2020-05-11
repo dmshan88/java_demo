@@ -19,10 +19,13 @@ public class MenuExcel {
     @ExcelProperty(value = "上级id")
     private Integer parentId; //父节点
     
-    @ExcelProperty(value = "缩略图")
-    private String image; //缩略图
+    @ExcelProperty(value = "优先级")
+    private Integer priority; //优先级
     
-    @ExcelProperty(value = "摘要")
-    private String summary; //摘要
+//    @ExcelProperty(value = "缩略图")
+//    private String image; //缩略图
+//    
+//    @ExcelProperty(value = "摘要")
+//    private String summary; //摘要
 
 }

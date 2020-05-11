@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import com.ygsm.common.PageObject;
 import com.ygsm.constants.TemplateConstant;
 import com.ygsm.model.dto.CategroyPostDTO;
+import com.ygsm.model.enums.RelateTypeEnum;
 import com.ygsm.model.pojo.Category;
 import com.ygsm.model.pojo.PageRelate;
 import com.ygsm.model.pojo.Post;
@@ -79,11 +80,11 @@ public class MainController {
 //        int tempId = 0;
         for (PageRelate pageRelate : pageRelateList) {
             // 关联分类
-            if (PageRelate.RelateType.CATEGORY.getType() == pageRelate.getRelateType()) {
+            if (RelateTypeEnum.CATEGORY.getIndex() == pageRelate.getRelateType()) {
                 Integer categoryId = pageRelate.getRelateId().intValue();
                 CategroyPostDTO categoryPostDTO = postService.findCategoryPostList(categoryId, relatePostLimit1, false);
                 model.addAttribute(TemplateConstant.WEBPAGE_RELATE + pageRelate.getPriority(), categoryPostDTO);// 相关分类文章列表
-            } else if (PageRelate.RelateType.SUB_CATEGORY.getType() == pageRelate.getRelateType()) {
+            } else if (RelateTypeEnum.SUB_CATEGORY.getIndex() == pageRelate.getRelateType()) {
                 Integer categoryId = pageRelate.getRelateId().intValue();
                 List<CategroyPostDTO> categoryPostDTOList = this.findChildrenCategroyPost(categoryId, categoryPostLimit1);
                 model.addAttribute(TemplateConstant.WEBPAGE_RELATE + pageRelate.getPriority(), categoryPostDTOList);

@@ -12,6 +12,10 @@ import com.github.pagehelper.PageInfo;
 import com.ygsm.common.PageObject;
 import com.ygsm.dao.PostDAO;
 import com.ygsm.model.dto.CategroyPostDTO;
+import com.ygsm.model.dto.PostDTO;
+import com.ygsm.model.form.PostAddForm;
+import com.ygsm.model.form.PostQueryForm;
+import com.ygsm.model.form.PostUpdateForm;
 import com.ygsm.model.pojo.Category;
 import com.ygsm.model.pojo.Post;
 import com.ygsm.service.CategoryService;
@@ -61,6 +65,36 @@ public class PostServiceImpl implements PostService {
     public PageInfo<Post> findCategoryPostPage(Integer categoryId, IPage pageable) {
         PageHelper.startPage(pageable);
         return new PageInfo<>(postDAO.findByCategoryId(categoryId));
+    }
+
+    @Override
+    public PostDTO findDetail(Long id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public PageInfo<PostDTO> query(PostQueryForm object, IPage pageable) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void add(PostAddForm object) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void update(PostUpdateForm object) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void delete(Long id) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

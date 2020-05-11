@@ -1,10 +1,10 @@
-package com.ygsm.model.pojo;
+package com.ygsm.model.form;
 
 import lombok.Data;
 
-/**页面关联*/
+/**更新页面关联*/
 @Data
-public class PageRelate {
+public class PageRelateUpdateForm {
     
     private Long id;
     

@@ -24,9 +24,6 @@ import com.ygsm.model.excel.CategoryExcel;
 import com.ygsm.model.excel.MenuExcel;
 import com.ygsm.model.excel.PostExcel;
 import com.ygsm.model.excel.WebPageExcel;
-import com.ygsm.model.form.CategoryCreateForm;
-import com.ygsm.model.form.MenuCreateForm;
-import com.ygsm.model.form.PostCreateForm;
 import com.ygsm.model.pojo.Category;
 import com.ygsm.model.pojo.Menu;
 import com.ygsm.model.pojo.Post;
@@ -55,26 +52,26 @@ public class ApiController {
         return post;
     }
     
-    @PostMapping("/create-post")
-    public void createPost(PostCreateForm postCreateForm) {
-        Post post = new Post();
-        BeanUtil.copyProperties(postCreateForm, post);
-        postDAO.insert(post);
-    }
+//    @PostMapping("/create-post")
+//    public void createPost(PostCreateForm postCreateForm) {
+//        Post post = new Post();
+//        BeanUtil.copyProperties(postCreateForm, post);
+//        postDAO.insert(post);
+//    }
     
-    @PostMapping("/create-category")
-    public void createCategory(CategoryCreateForm categoryCreateForm) {
-        Category category = new Category();
-        BeanUtil.copyProperties(categoryCreateForm, category);
-        categoryDAO.insert(category);
-    }
+//    @PostMapping("/create-category")
+//    public void createCategory(CategoryCreateForm categoryCreateForm) {
+//        Category category = new Category();
+//        BeanUtil.copyProperties(categoryCreateForm, category);
+//        categoryDAO.insert(category);
+//    }
     
-    @PostMapping("/create-menu")
-    public void createMenu(MenuCreateForm categoryCreateForm) {
-        Menu menu = new Menu();
-        BeanUtil.copyProperties(categoryCreateForm, menu);
-        menuDAO.insert(menu);
-    }
+//    @PostMapping("/create-menu")
+//    public void createMenu(MenuAddForm categoryCreateForm) {
+//        Menu menu = new Menu();
+//        BeanUtil.copyProperties(categoryCreateForm, menu);
+//        menuDAO.insert(menu);
+//    }
     
     @PostMapping(value = "/import-category")
     public String importCategory(@RequestParam("file") MultipartFile file) {

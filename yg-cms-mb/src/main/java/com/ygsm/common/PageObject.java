@@ -2,6 +2,7 @@ package com.ygsm.common;
 
 import com.github.pagehelper.IPage;
 
+/**分页对象*/
 public class PageObject implements IPage {
     
     private Integer pageNum;
@@ -20,7 +21,6 @@ public class PageObject implements IPage {
         this.orderBy = orderBy;
     }
     
-
     @Override
     public Integer getPageNum() {
         return pageNum;
@@ -33,7 +33,6 @@ public class PageObject implements IPage {
 
     @Override
     public String getOrderBy() {
-        // TODO Auto-generated method stub
         return orderBy;
     }
 

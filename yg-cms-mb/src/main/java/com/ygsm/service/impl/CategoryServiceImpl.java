@@ -7,7 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.IPage;
+import com.github.pagehelper.PageInfo;
 import com.ygsm.dao.CategoryDAO;
+import com.ygsm.model.dto.CategoryDTO;
+import com.ygsm.model.dto.IdNameDTO;
+import com.ygsm.model.form.CategoryAddForm;
+import com.ygsm.model.form.CategoryQueryForm;
+import com.ygsm.model.form.CategoryUpdateForm;
 import com.ygsm.model.pojo.Category;
 import com.ygsm.service.CategoryService;
 
@@ -54,6 +61,42 @@ public class CategoryServiceImpl implements CategoryService {
             Collections.reverse(parentCategoryList);
         }
         return parentCategoryList;
+    }
+
+    @Override
+    public CategoryDTO findDetail(Integer id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<IdNameDTO> findNameList() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public PageInfo<CategoryDTO> query(CategoryQueryForm object, IPage pageable) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void add(CategoryAddForm object) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void update(CategoryUpdateForm object) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void delete(Integer id) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

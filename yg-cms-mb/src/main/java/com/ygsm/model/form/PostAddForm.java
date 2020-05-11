@@ -1,12 +1,10 @@
-package com.ygsm.model.pojo;
+package com.ygsm.model.form;
 
 import lombok.Data;
 
-/**文章*/
+/**添加文章*/
 @Data
-public class Post {
-    
-    private Long id;
+public class PostAddForm {
     
     private String title;//标题
     

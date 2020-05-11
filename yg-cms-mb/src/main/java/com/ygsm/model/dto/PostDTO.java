@@ -1,10 +1,12 @@
-package com.ygsm.model.pojo;
+package com.ygsm.model.dto;
+
+import com.ygsm.model.enums.PostTypeEnum;
 
 import lombok.Data;
 
 /**文章*/
 @Data
-public class Post {
+public class PostDTO {
     
     private Long id;
     
@@ -18,7 +20,14 @@ public class Post {
     
     private Integer categoryId; //分类ID
     
+    private String categoryName; //分类名称
+    
     private Integer type; //类型:1=文章;2=资源
+    
+    /**类型名称*/
+    public String getTypeName() {
+        return PostTypeEnum.getNameByIndex(this.getType());
+    }
     
 
 }

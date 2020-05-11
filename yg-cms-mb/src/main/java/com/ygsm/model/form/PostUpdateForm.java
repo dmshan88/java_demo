@@ -1,10 +1,10 @@
-package com.ygsm.model.pojo;
+package com.ygsm.model.form;
 
 import lombok.Data;
 
-/**文章*/
+/**更新文章*/
 @Data
-public class Post {
+public class PostUpdateForm {
     
     private Long id;
     

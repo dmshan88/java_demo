@@ -2,6 +2,13 @@ package com.ygsm.service;
 
 import java.util.List;
 
+import com.github.pagehelper.IPage;
+import com.github.pagehelper.PageInfo;
+import com.ygsm.model.dto.CategoryDTO;
+import com.ygsm.model.dto.IdNameDTO;
+import com.ygsm.model.form.CategoryAddForm;
+import com.ygsm.model.form.CategoryQueryForm;
+import com.ygsm.model.form.CategoryUpdateForm;
 import com.ygsm.model.pojo.Category;
 
 public interface CategoryService {
@@ -20,5 +27,17 @@ public interface CategoryService {
     
     /**获取子分类列表*/ 
     List<Category> findChildrenList(Integer categoryId);
+
+    CategoryDTO findDetail(Integer id);
+
+    List<IdNameDTO> findNameList();
+
+    PageInfo<CategoryDTO> query(CategoryQueryForm object, IPage pageable);
+
+    void add(CategoryAddForm object);
+
+    void update(CategoryUpdateForm object);
+
+    void delete(Integer id);
 
 }

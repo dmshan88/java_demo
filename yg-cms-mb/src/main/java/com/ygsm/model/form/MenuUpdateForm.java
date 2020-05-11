@@ -1,10 +1,10 @@
-package com.ygsm.model.dto;
+package com.ygsm.model.form;
 
 import lombok.Data;
 
-/**目录*/
+/**更新目录*/
 @Data
-public class MenuDTO {
+public class MenuUpdateForm {
     
     private Integer id;
     
@@ -13,8 +13,6 @@ public class MenuDTO {
     private String url;//地址
     
     private Integer parentId; //父节点
-    
-    private String parentName; //父节点名称
     
     private Integer priority; //优先级
     
