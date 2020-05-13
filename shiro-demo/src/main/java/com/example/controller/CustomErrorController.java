@@ -6,12 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ErrorAttributes;
-import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import com.example.common.CustomResponse;
 import com.example.common.ErrorCode;
@@ -31,7 +30,7 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping(value = PATH)
     CustomResponse<Object> error(HttpServletRequest request, HttpServletResponse response) {
-        RequestAttributes requestAttributes = new ServletRequestAttributes(request);
+        ServletWebRequest requestAttributes = new ServletWebRequest(request);
         Map<String, Object> errorMap = this.errorAttributes.getErrorAttributes(requestAttributes, false);
         Integer status = (Integer) errorMap.get("status");
         ErrorCode errorcode = ErrorCode.UNKNOWN;

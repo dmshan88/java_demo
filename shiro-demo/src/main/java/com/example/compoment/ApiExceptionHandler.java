@@ -12,9 +12,9 @@ import com.example.common.CustomException;
 import com.example.common.CustomResponse;
 import com.example.common.ErrorCode;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
-@Log4j
+@Log4j2
 @RestControllerAdvice
 public class ApiExceptionHandler {
 

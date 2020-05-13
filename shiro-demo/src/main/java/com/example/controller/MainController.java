@@ -4,6 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class MainController {
     
     @RequiresPermissions(value = {"user"})
     @GetMapping(path = "/test")
-    public String test(@RequestParam String token) {
+    public String test() {
         System.out.println(SecurityUtils.getSubject().getPrincipal());
         System.out.println(SecurityUtils.getSubject().isPermitted("user"));
         return "ok";

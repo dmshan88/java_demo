@@ -1,7 +1,10 @@
 package com.example.shiro;
 
+import java.util.Enumeration;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -18,22 +21,29 @@ import com.example.common.ErrorCode;
 @Scope(value = "prototype")
 @Component
 public class JwtFilter extends AccessControlFilter {
-    
+
     private Integer status = HttpServletResponse.SC_UNAUTHORIZED;
-    
+
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+
         Subject subject = getSubject(request, response);
-        String token = request.getParameter("token");
-        if(token == null || token.isEmpty()) {
+//        String token = request.getParameter("token");
+        String token = httpServletRequest.getHeader("auth");
+        System.out.println(token);
+        if (httpServletRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
+            return true;
+        }
+        if (token == null || token.isEmpty()) {
             return false;
         }
         try {
             subject.login(new JwtAuthToken(token));
             return true;
         } catch (UnknownAccountException e) {
-           System.out.println("UnknownAccountException" + e.getMessage());
+            System.out.println("UnknownAccountException" + e.getMessage());
         } catch (ExpiredCredentialsException e) {
             status = ErrorCode.TOKEN_EXPIRED.getCode();
             System.out.println("ExpiredCredentialsException" + e.getMessage());
