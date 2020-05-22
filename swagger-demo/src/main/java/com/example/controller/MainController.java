@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.CustomResponse;
 import com.example.common.ErrorCode;
+import com.example.pojo.User;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -28,6 +29,11 @@ public class MainController {
             return CustomResponse.ok("aa");
         }
         return CustomResponse.error(ErrorCode.AUTH_ERROR);
+    }
+    
+    @GetMapping("/11")
+    public CustomResponse<User> test1() {
+        return null;
     }
 
 }

@@ -1,7 +1,5 @@
 package com.example.shiro;
 
-import java.util.Enumeration;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
