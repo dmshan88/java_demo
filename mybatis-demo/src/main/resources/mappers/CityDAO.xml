@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.CityDAO">
   <select id="findById" resultType="City">
-    select * from city where id = #{id}
+    select * from city where id =
+    #{id}
   </select>
+  
+    <select id="findAll" resultType="City">
+    select * from city
+  </select>
+
+  <insert id="insert" parameterType="City">
+    insert into city(name, create_time, deleted)
+    values(#{name}, #{createTime},0)
+  </insert>
 </mapper>
