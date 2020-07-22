@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  tomcat:
+    basedir: tomcat
+    accesslog: 
+      enabled: true
+      encoding: utf-8
+      
+logging:
+  path: log
+  level:
+    root: info
