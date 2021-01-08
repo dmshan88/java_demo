@@ -1,0 +1,32 @@
+app:
+  properties:
+    config:
+      tableName: article
+      enableIdColumn: false
+      enableSanitizeHtml: true
+    csvheader:
+      urlColumn: url-href
+      titleColumn: title
+      authorColumn: author
+      contentColumn: content
+      dateColumn: date
+    record:
+      idColumn: id
+      titleColumn: title
+      authorColumn: author
+      contentColumn: content
+      categoryIdColumn: category_id
+      dateColumn: create_time
+      additionalColumns:
+        isimportant: 0
+        click_volume: 0
+        type: 1
+        status: 1
+        create_user_id: 1
+        publish_user_id: 1
+        is_deleted: 0
+server:
+  port: 8080
+logging:
+  file:
+    path: log

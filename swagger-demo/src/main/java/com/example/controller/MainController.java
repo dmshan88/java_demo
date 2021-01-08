@@ -22,7 +22,7 @@ public class MainController {
     }
     
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "token", paramType = "query", value= "不需要")})
+//    @ApiImplicitParams({@ApiImplicitParam(name = "token", paramType = "query", value= "不需要")})
     @GetMapping(path = "/login")
     public CustomResponse<String> login(@RequestParam String username, @RequestParam String password) {
         if (username.equals("user1") && password.equals("pwd1")) {

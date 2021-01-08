@@ -1,0 +1,12 @@
+server:
+  port: 8080
+spring:
+  quartz:
+    properties:
+      org:
+        quartz:
+          threadPool:
+            threadCount: 5
+logging:
+  file:
+    path: log

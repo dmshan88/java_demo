@@ -1,0 +1,12 @@
+app:
+  convert-path: D:\convertPath
+  #convert-path: D:\apache-tomcat-8.5.29\webapps\web-ssm\upload\assessment
+jodconverter:
+  local:
+    enabled: true
+    #officeHome: D:\pf\OpenOffice 4
+    officeHome: D:\pf\LibreOffice
+    #officeHome: C:\Program Files (x86)\OpenOffice 4
+logging:
+  file:
+    path: log
