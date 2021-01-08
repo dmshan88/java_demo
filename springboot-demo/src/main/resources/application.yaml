@@ -1,0 +1,12 @@
+app:
+  user:
+    id: 1
+    name: aa
+server:
+  port: 8080
+
+logging:
+  file:
+    path: log
+  level:
+    web: DEBUG
