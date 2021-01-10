@@ -2,11 +2,17 @@ app:
   user:
     id: 1
     name: aa
+    
 server:
-  port: 8080
+  tomcat:
+    basedir: log
+    accesslog:
+      enabled: true
+      directory: accesslog
+      pattern: combined
 
 logging:
   file:
-    path: log
+    path: log/spring
   level:
     web: DEBUG
