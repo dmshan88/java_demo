@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.WordDAO"> 
+
+  
+  <select id="findAll" resultType="com.example.model.dto.WordDTO">
+    SELECT * FROM word
+    ORDER BY `level`
+  </select>
+  
+  <select id="findByName" resultType="com.example.model.pojo.Word">
+    SELECT * FROM word
+    WHERE `name` = #{name} LIMIT 1
+  </select>
+  
+    <select id="findByTone" resultType="com.example.model.dto.WordDTO">
+    SELECT * FROM word
+    WHERE `tone` = #{tone}
+  </select>
+  
+    <select id="findById" resultType="com.example.model.pojo.Word">
+    SELECT * FROM word
+    WHERE `id` = #{id} LIMIT 1
+  </select>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO word(name, tone, level) VALUES 
+       (#{item.name}, #{item.tone} , #{item.level})
+  </insert>
+    
+  <update id="update">
+    UPDATE `word` SET 
+      name = #{item.name}, 
+      tone = #{item.tone}, 
+      level = #{item.level}
+    WHERE id = #{item.id}
+  </update>
+  
+    <delete id="delete">
+    DELETE FROM `word` WHERE id = #{id} LIMIT 1
+  </delete>
+</mapper>

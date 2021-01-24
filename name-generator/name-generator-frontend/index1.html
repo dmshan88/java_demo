@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用layui</title>
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+</head>
+
+<body>
+
+    <div class="layui-card">
+        <div class="layui-card-header">名字</div>
+        <div class="layui-card-body" style="text-align: center;font-size: 20pt;">
+            <span id="name">金龙</span>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <button id="noLike" type="button" class="layui-btn layui-btn-danger">不喜欢</button>
+        <button id="normalLike" type="button" class="layui-btn">一般</button>
+        <button id="like" type="button" class="layui-btn layui-btn-normal">喜欢</button>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-header">喜欢的名字</div>
+        <div class="layui-card-body">
+            <span id="likeNames"></span>
+        </div>
+    </div>
+
+    <script src="lib/layui/layui.js"></script>
+    <script>
+        layui.use(['layer'], function() {
+            var layer = layui.layer,
+                $ = layui.jquery;
+            var BACKEND_URL = 'http://192.168.1.107:8080';
+            getNames(2);
+            getNewName();
+
+            $('#noLike').click(function() {
+                console.log("noLike clicked");
+                setLevel(nameData.id, 0);
+            });
+            $('#normalLike').click(function() {
+                console.log("normalLike clicked");
+                setLevel(nameData.id, 1);
+            });
+            $('#like').click(function() {
+                console.log("like clicked");
+                setLevel(nameData.id, 2);
+            });
+            var nameData;
+
+            function getNewName() {
+                $.ajax({
+                    type: 'post',
+                    url: BACKEND_URL + '/name/next',
+                    data: {},
+                    dataType: 'json',
+                    success: function(r) {
+                        if (r.success) {
+                            console.log(r.data);
+                            nameData = r.data;
+                            $('#name').text(nameData.fullName);
+                        } else {
+                            layer.msg("错误" + r.message);
+                            return;
+                        }
+                    }
+                });
+            };
+
+            function setLevel(id, level) {
+                $.ajax({
+                    type: 'post',
+                    url: BACKEND_URL + '/name/changeLevel',
+                    data: {
+                        id: id,
+                        level: level
+                    },
+                    dataType: 'json',
+                    success: function(r) {
+                        if (r.success) {
+                            getNewName();
+                        } else {
+                            layer.msg("错误" + r.message);
+                            return;
+                        }
+                    }
+                });
+            }
+            var likeName = new Array();
+
+            function getNames(level) {
+                $.ajax({
+                    type: 'post',
+                    url: BACKEND_URL + '/name/findByLevel',
+                    data: {
+                        level: level
+                    },
+                    dataType: 'json',
+                    success: function(r) {
+                        if (r.success) {
+                            //  $('#likeNames').text();
+                            likeName = new Array();
+                            r.data.forEach(obj => {
+                                likeName.push(obj.fullName);
+                            });
+                            setLikeNames();
+                        } else {
+                            layer.msg("错误" + r.message);
+                            return;
+                        }
+                    }
+                });
+            }
+
+            function setLikeNames() {
+                console.log(likeName)
+                var text = '';
+                likeName.forEach(obj => {
+                    text += obj+ ',';
+                });
+                $('#likeNames').text(text);
+            }
+        });
+    </script>
+</body>
+
+</html>

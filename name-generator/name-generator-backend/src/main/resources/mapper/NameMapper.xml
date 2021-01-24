@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.NameDAO"> 
+  
+  <resultMap id="dtoMap" type="com.example.model.dto.NameDTO">
+    <id column="id" property="id" />
+    <result column="first" property="first"/>
+    <result column="second" property="second"/>
+    <result column="level" property="level"/>
+    <result column="fullName" property="fullName"/>
+  </resultMap>
+  
+  <sql id="dtoSelectSql">
+    SELECT 
+      nm.id,
+      nm.first,
+      nm.second,
+      concat(wd1.name, wd2.name) AS fullName,
+      nm.level 
+    FROM name AS nm
+    INNER JOIN word as wd1 on nm.`first` = wd1.id
+    INNER JOIN word as wd2 on nm.`second` = wd2.id
+  </sql>
+  
+  <select id="findById" resultType="com.example.model.pojo.Name">
+    SELECT * FROM name
+    WHERE `id` = #{id} LIMIT 1
+  </select>
+  
+  <select id="findByLevel" resultMap="dtoMap">
+    <include refid="dtoSelectSql"/>
+    WHERE nm.level = #{level}
+  </select>
+  
+  <select id="findByFirstAndSecond" resultType="com.example.model.pojo.Name">
+    SELECT * FROM name
+    WHERE `first` = #{first} AND `second` = #{second} LIMIT 1
+  </select>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO name(first, second, level) VALUES 
+       (#{item.first}, #{item.second} , #{item.level})
+  </insert>
+    
+  <update id="update">
+    UPDATE `name` SET 
+      first = #{item.first}, 
+      second = #{item.second}, 
+      level = #{item.level}
+    WHERE id = #{item.id}
+  </update>
+  
+    <delete id="delete">
+    DELETE FROM `name` WHERE id = #{id} LIMIT 1
+  </delete>
+</mapper>

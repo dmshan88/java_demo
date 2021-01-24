@@ -1,0 +1,33 @@
+app:
+  swagger:
+    enable: true
+server:
+  port: 8080
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.model.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+spring:
+  cache:
+    type: jcache
+    jcache:
+      config: classpath:ehcache3.xml
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/name_generator?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password:
+
+logging:
+  file:
+    path: log
+  level:
+    root: info
+    cn:
+      lzc:
+        user:
+          mapper: debug
