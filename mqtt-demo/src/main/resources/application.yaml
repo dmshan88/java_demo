@@ -1,0 +1,11 @@
+app:
+  mqtt:
+    broker:
+      enable: true
+    client:
+      #uri: tcp://81.70.80.31
+      uri: tcp://127.0.0.1
+      id: server
+      topic:
+        - aaa/#
+    
