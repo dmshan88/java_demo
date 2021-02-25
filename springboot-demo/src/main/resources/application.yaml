@@ -11,6 +11,12 @@ server:
       directory: accesslog
       pattern: combined
 
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
 logging:
   file:
     path: log/spring
