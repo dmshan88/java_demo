@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.model.User;
 import com.example.service.UserService;
 //https://github.com/baichengzhou/SpringMVC-Mybatis-Shiro-redis-0.2
 
@@ -25,5 +27,14 @@ public class MainController {
 		model.addAttribute("message", userService.doSomething().toString());
 		log.info("aaa{}", "bb");
 		return "hello";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/user")
+	public User user() {
+		User user =  new User();
+		user.setId(15);
+		user.setName("aa啊");
+		return user;
 	}
 }
