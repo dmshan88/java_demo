@@ -8,7 +8,7 @@ public interface FileStorageUtil {
 	
 	void upload(InputStream stream, String toFile) throws FileStorageException;
 	
-	void download(String fromFile, InputStream stream) throws FileStorageException; 
+	InputStream download(String fromFile) throws FileStorageException; 
 	
 	void download(String fromFile, String toFile) throws FileStorageException;
 	

@@ -29,7 +29,6 @@ public class FileStorageMinio implements FileStorageUtil {
 		} catch (Exception e) {
 			throw new FileStorageException(e);
 		}
-		
 	}
 
 	@Override
@@ -42,9 +41,10 @@ public class FileStorageMinio implements FileStorageUtil {
 	}
 
 	@Override
-	public void download(String fromFile, InputStream stream) throws FileStorageException {
+	public InputStream download(String fromFile) throws FileStorageException {
 		try {
-			stream = minioClient.getObject(GetObjectArgs.builder().bucket(bucket).object(fromFile).build());
+			InputStream stream = minioClient.getObject(GetObjectArgs.builder().bucket(bucket).object(fromFile).build());
+			return stream;
 		} catch (Exception e) {
 			throw new FileStorageException(e);
 		}
