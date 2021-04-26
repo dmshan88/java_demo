@@ -10,8 +10,6 @@ public class UploadForm {
 	
 	private String name;
 	
-	
-	
 	public Integer getId() {
 		return id;
 	}
