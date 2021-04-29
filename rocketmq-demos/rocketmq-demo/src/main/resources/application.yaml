@@ -1,0 +1,6 @@
+server:
+  port: 9001
+rocketmq:
+  nameServer: 127.0.0.1:9876
+  producer:
+    group: producer1
