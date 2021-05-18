@@ -1,0 +1,14 @@
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:mybatis
+    username: sa
+    password: 
+    schema:
+      - classpath:sql/schema.sql
+    initialization-mode: ALWAYS
